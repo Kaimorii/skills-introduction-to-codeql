@@ -11,8 +11,8 @@ def index():
     read = bool(request.args.get('read'))
 
     if name:
-        # Use parameterized query to prevent SQL injection
-        cursor.execute("SELECT * FROM books WHERE name LIKE %s", (f"%{name}%",))
+        # Insecure SQL query to demonstrate vulnerability
+        cursor.execute("SELECT * FROM books WHERE name LIKE '%" + name + "%'")
         books = [Book(*row) for row in cursor]
     elif author:
         # Use parameterized query to prevent SQL injection
